@@ -3,6 +3,7 @@
 <head>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/id.js"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>SPPD Desa Tambusai</title>
@@ -105,6 +106,10 @@ button{padding:10px 14px;border:0;border-radius:6px;background:#1f4e79;color:#ff
     page-break-after:avoid;
   }
 
+    .a4:last-child{
+        page-break-after:auto;
+    }
+
   table{
     page-break-inside:avoid;
   }
@@ -133,6 +138,11 @@ height:1123px;
 position:relative;
 font-family:"Times New Roman";
 }
+
+.a4:last-child{
+    page-break-after:auto;
+}
+
 </style>
 </head>
 
@@ -162,19 +172,16 @@ font-family:"Times New Roman";
 <input id='tujuan' placeholder='Tempat tujuan'>
 <input id='lama' placeholder='Lama perjalanan'>
 <input id="tglberangkat"
-  type="text" 
-  placeholder="Tanggal Berangkat"
-  onfocus="this.type='date'"
-  onblur="if(!this.value)this.type='text'">
+       type="text"
+       placeholder="Tanggal Berangkat">
 
 <input id="tglkembali"
-  type="text" 
-  placeholder="Tanggal Kembali"
-  onfocus="this.type='date'"
-  onblur="if(!this.value)this.type='text'">
+       type="text"
+       placeholder="Tanggal Kembali">
 <input id='transport' placeholder='Alat angkutan'>
 <input id='instansi' placeholder='Instansi Pembebanan Anggaran'>
 <input id='anggaran' placeholder='Mata anggaran'>
+<input id='pengikut' placeholder='Pengikut'>
 </div>
 
 <br>
@@ -277,21 +284,21 @@ Jl. K.H Ahmad Dahlan Poros No.10 Desa Tambusai Kec. Rumbio Jaya, Kampar - Riau
 
 <tr>
   <td>2.</td>
-  <td>Nama Pegawai / NIP</td>
+  <td>Nama Pegawai/NIP Pegawai yang Melaksanakan Perjalanan Dinas</td>
   <td>:</td>
   <td>${val('nama')} / ${val('nip')}</td>
 </tr>
 
 <tr>
   <td>3.</td>
-  <td>a. Pangkat/Golongan menurut PP No. 6 Tahun 1997</td>
+  <td>a. Pangkat dan Golongan</td>
   <td>:</td>
   <td>${val('gol')}</td>
 </tr>
 
 <tr>
   <td></td>
-  <td>b. Jabatan</td>
+  <td>b. Jabatan/Instansi</td>
   <td>:</td>
   <td>${val('jabatan')}</td>
 </tr>
@@ -300,7 +307,7 @@ Jl. K.H Ahmad Dahlan Poros No.10 Desa Tambusai Kec. Rumbio Jaya, Kampar - Riau
   <td></td>
   <td>c. Tingkat menurut Peraturan Perjalanan</td>
   <td>:</td>
-  <td>-</td>
+  <td>Sesuai Standar Biaya Desa</td>
 </tr>
 
 <tr>
@@ -333,43 +340,58 @@ Jl. K.H Ahmad Dahlan Poros No.10 Desa Tambusai Kec. Rumbio Jaya, Kampar - Riau
 
 <tr>
   <td>7.</td>
-  <td>a. Lamanya Perjalanan Dinas</td>
+  <td>a. Lama Perjalanan Dinas</td>
   <td>:</td>
   <td>${val('lama')} Hari</td>
 </tr>
 
 <tr>
   <td></td>
-  <td>b. Tanggal berangkat</td>
+  <td>b. Tanggal Berangkat</td>
   <td>:</td>
   <td>${val('tglberangkat')}</td>
 </tr>
 
 <tr>
   <td></td>
-  <td>c. Tanggal harus kembali</td>
+  <td>c. Tanggal Harus Kembali/Tiba ditempat</td>
   <td>:</td>
   <td>${val('tglkembali')}</td>
 </tr>
 
 <tr>
   <td>8.</td>
+  <td>Pengikut</td>
+  <td>:</td>
+  <td>${val('pengikut')}</td>
+</tr>
+
+<tr>
+  <td>9.</td>
   <td>Pembebanan Anggaran</td>
   <td>:</td>
+  <td>${val('anggaran')}</td>
 </tr>
 
 <tr>
   <td></td>
   <td>a. Instansi</td>
   <td>:</td>
-  <td>${val('instansi')}</td>
+  <td>Pemerintah Desa Tambusai</td>
 </tr>
 
 <tr>
   <td></td>
-  <td>b. Mata Anggaran</td>
+  <td>b. Akun</td>
   <td>:</td>
-  <td>${val('anggaran')}</td>
+  <td> </td>
+</tr>
+
+<tr>
+  <td>10.</td>
+  <td>Keterangan Lain-lain</td>
+  <td>:</td>
+  <td>Lihat Lembar Selanjutnya</td>
 </tr>
 
 </table>
@@ -380,7 +402,7 @@ Jl. K.H Ahmad Dahlan Poros No.10 Desa Tambusai Kec. Rumbio Jaya, Kampar - Riau
     Dikeluarkan di : Desa Tambusai<br>
     Pada tanggal : ${val('tglberangkat')}<br>
 
-    <b>PENGGUNA ANGGARAN</b><br><br><br><br>
+    <b>PENGGUNA ANGGARAN</b><br><br><br><br><br><br>
 
     KRIDO KAWAL BASUKI
   </div>
@@ -390,64 +412,156 @@ Jl. K.H Ahmad Dahlan Poros No.10 Desa Tambusai Kec. Rumbio Jaya, Kampar - Riau
 </div>
 
 <!-- TTD + PERJALANAN -->
+</div>
 
-<table class="tabel-garis-atas-bawah">
+
+
+<!-- HALAMAN KEDUA -->
+<div class="a4">
+
+<table style="width:100%;border-collapse:collapse;font-size:11pt;">
+
 <tr>
-<td style="width:50%">
-I. Tiba di : ${val('tujuan')}<br>
-Pada tanggal :${val('tglberangkat')}
+
+<!-- KOLOM KIRI -->
+<td style="width:50%;border:1px solid #000;vertical-align:top;padding:8px;height:170px;">
+
 </td>
 
-<td style="width:50%">
-Berangkat dari :${val('tujuan')}<br>
-Ke :${val('asal')}<br>
-Pada Tanggal :${val('tglkembali')}
-<br><br><br><br>
+<!-- KOLOM KANAN -->
+<td style="width:50%;border:1px solid #000;vertical-align:top;padding:8px;">
+
+<table style="width:100%;">
+<tr><td style="border:none;width:110px;">Berangkat dari</td><td style="border:none;width:10px;">:</td><td style="border:none">${val('asal')}</td></tr>
+<tr><td style="border:none;">Ke</td><td style="border:none">:</td><td style="border:none">${val('tujuan')}</td></tr>
+<tr><td style="border:none;">Pada tanggal</td><td style="border:none">:</td><td style="border:none">${val('tglberangkat')}</td></tr>
+</table>
+
+<div style="margin-top:3px">
+Kepala .................................
+<br><br><br><br><br>
+
+(..............................................)<br>
+NIP.
+</div>
+
 </td>
+
 </tr>
+
+<!-- I -->
+<tr>
+
+<td style="border:1px solid #000;padding:8px;height:140px;">
+
+<table style="width:100%;">
+<tr><td style="border:none;width:90px;"><b>I. Tiba di</td><td style="border:none;width:10px;">:</td><td style="border:none"></b>${val('tujuan')}</td></tr>
+<tr><td style="border:none;width:90px;">Pada tanggal</td><td style="border:none;width:10px;">:</td><td style="border:none">${val('tglberangkat')}</td></tr>
 </table>
 
+<div style="margin-top:3px">
+Kepala .................................
+<br><br><br><br><br>
 
-<table class="tabel-garis-atas-bawah">
-<tr>
-  <td style="width:50%;">
-    II. Tiba kembali di : Kantor Desa Tambusai<br>
-    Pada tanggal : ${val('tglkembali')}</td>
-  </td>
+(..............................................)<br>
+NIP.
+</div>
 
-  <td style="width:50%;">
-    Telah diperiksa dengan keterangan bahwa perjalanan tersebut
-    atas perintahnya dan semata-mata untuk kepentingan jabatan
-    dalam waktu sesingkat-singkatnya
-  </td>
-</tr>
+<td style="border:1px solid #000;padding:8px;">
 
-<tr>
-  <td colspan="2" style="text-align:right; padding-top:20px;">
-    <b>PENGGUNA ANGGARAN</b><br><br><br><br>
-    KRIDO KAWAL BASUKI
-  </td>
-</tr>
+<table style="width:100%;">
+<tr><td style="border:none;width:110px;">Berangkat dari</td><td style="border:none;width:10px;">:</td><td style="border:none">${val('asal')}</td></tr>
+<tr><td style="border:none;">Ke</td><td style="border:none">:</td><td style="border:none">${val('tujuan')}</td></tr>
+<tr><td style="border:none;">Pada tanggal</td><td style="border:none">:</td><td style="border:none">${val('tglberangkat')}</td></tr>
 </table>
+
+<div style="margin-top:3px">
+Kepala .................................
+<br><br><br><br><br>
+
+(..............................................)<br>
+NIP.
+</div>
+
+</td>
+
+</tr>
+
+
+<!-- II -->
+<tr>
+
+<td style="border:1px solid #000;padding:8px;height:140px;">
+
+<table style="width:100%;">
+<tr><td style="border:none;width:90px;"><b>II. Tiba di</td><td style="border:none;width:10px;">:</td><td style="border:none"></b>${val('asal')}</td></tr>
+<tr><td style="border:none;width:90px;">Pada tanggal</td><td style="border:none;width:10px;">:</td><td style="border:none">${val('tglkembali')}</td></tr>
+</table>
+
+<div style="margin-top:3px">
+Kepala .................................
+<br><br><br><br><br>
+
+(..............................................)<br>
+NIP.
+</div>
+
+<td style="border:1px solid #000;padding:8px;">
+
+<p style="margin:0">
+Telah diperiksa dengan keterangan bahwa perjalanan dinas tersebut benar dilakukan atas perintahnya dan semata-mata untuk kepentingan jabatan dalam waktu yang sesingkat-singkatnya.
+</p>
+
+<div style="margin-top:50px;text-align:center;">
+<b>PENGGUNA ANGGARAN</b>
+<br><br><br><br><br><br>
+KRIDO KAWAL BASUKI
+</div>
+
+</td>
+
+</tr>
 
 <!-- CATATAN -->
-<table>
-<tr><td>III. CATATAN LAIN-LAIN<br></td></tr>
+<tr>
 
-<td>
-IV. PERHATIAN :<br>
-Pejabat yang berwenang menerbitkan SPPD, Anggota yang melakukan Perjalanan Dinas, para pejabat yang mengesahkan tanggal berangkat/tiba serta Bendaharawan bertanggungjawab berdasarkan peraturan-peraturan Keuangan Negara apabila Negara mendapatkan rugi akibat kesalahan kealpaannya.
+<td colspan="2" style="border:1px solid #000;padding:8px;">
+<b>III. CATATAN LAIN-LAIN</b>
 </td>
+
 </tr>
+
+<tr>
+
+<td colspan="2" style="border:1px solid #000;padding:8px;font-size:10pt;">
+<b>IV. PERHATIAN</b><br>
+PPK yang menerbitkan SPPD, pegawai yang melakukan perjalanan dinas, para pejabat yang mengesahkan tanggal berangkat/tiba, serta bendahara pengeluaran bertanggung jawab apabila negara menderita kerugian akibat kesalahan atau kelalaiannya.
+</td>
+
+</tr>
+
 </table>
 
 </div>
+
 `;
 
 printArea.innerHTML = h;
 printArea.classList.remove('hidden');
 window.print();
 }
+
+flatpickr("#tglberangkat",{
+    locale:"id",
+    dateFormat:"j F Y",
+    allowInput:true
+});
+
+flatpickr("#tglkembali",{
+    locale:"id",
+    dateFormat:"j F Y",
+    allowInput:true
+});
 
 muat();
 
